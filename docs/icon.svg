@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- kSread app icon: black open-book outline on a white rounded square.
+     Mirrors app/src/main/res/drawable/ic_launcher_foreground.xml. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect x="0" y="0" width="512" height="512" rx="96" ry="96" fill="#FFFFFF"/>
+  <g transform="translate(100,112) scale(13)" fill="none" stroke="#000000"
+     stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M12,5 C10,3.6 6.5,3.4 3.5,4.2 L3.5,18 C6.5,17.2 10,17.4 12,18.8 C14,17.4 17.5,17.2 20.5,18 L20.5,4.2 C17.5,3.4 14,3.6 12,5 Z"/>
+    <path d="M12,5 L12,18.8"/>
+  </g>
+</svg>
