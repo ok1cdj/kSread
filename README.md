@@ -1,10 +1,17 @@
+<img src="docs/icon-192.png" alt="kSread icon" width="96" align="right">
+
 # kSread
 
 A minimal **speed-reading** (RSVP) app for the **Mudita Kompakt** e-ink phone.
 Words are flashed one at a time with the focus letter aligned to the eye's
-Optimal Recognition Point, so you read without moving your gaze. A native
-Kotlin/Compose rewrite of the SwiftRead web app, using the same e-ink stack as
-[kRadar](../kRadar) and [kSync](../kSync).
+Optimal Recognition Point, so you read without moving your gaze.
+
+## Screenshots
+
+<p>
+  <img src="docs/screenshot1.png" alt="Library" width="320">
+  <img src="docs/screenshot2.png" alt="Reader" width="320">
+</p>
 
 ## Features
 
