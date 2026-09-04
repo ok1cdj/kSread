@@ -1,0 +1,21 @@
+# Secrets & signing — NEVER commit
+local.properties
+keystore/
+*.jks
+*.keystore
+
+# Build output
+.gradle/
+build/
+app/build/
+captures/
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+.DS_Store
+
+*.log
+
+# Built release APKs (produced by build-release.sh / CI)
+*.apk

@@ -1,0 +1,11 @@
+# Copy this file to `local.properties` and fill in real values.
+# `local.properties` is gitignored — secrets never enter the repo.
+
+# Android SDK location (Android Studio fills this in automatically on first open).
+#sdk.dir=/home/you/Android/Sdk
+
+# Release signing (see keystore/ — generated once with keytool, never committed).
+signing.storeFile=keystore/ksread.jks
+signing.storePassword=changeit
+signing.keyAlias=ksread
+signing.keyPassword=changeit
