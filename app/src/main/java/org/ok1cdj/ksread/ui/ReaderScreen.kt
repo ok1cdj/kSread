@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -39,6 +40,13 @@ import org.ok1cdj.ksread.data.ReaderPrefs
 // The word context is pure black for maximum e-ink contrast; the focus (ORP)
 // letter is a lighter grey so the eye locks onto the fixation point.
 private val FocusGrey = Color(0xFF8A8A8A)
+
+// The ORP pivot sits left of centre so the (usually longer) tail of the word
+// has more room, letting bigger fonts fit long words. Weights 1:2 place it a
+// third of the way in; the fixation ticks share the same fraction.
+private const val ORP_BEFORE_WEIGHT = 1f
+private const val ORP_AFTER_WEIGHT = 2f
+private const val ORP_TICK_BIAS = -1f / 3f // = 2 * before/(before+after) - 1
 
 @Composable
 fun ReaderScreen(vm: MainViewModel, state: UiState) {
@@ -64,13 +72,13 @@ fun ReaderScreen(vm: MainViewModel, state: UiState) {
                 .weight(1f),
             contentAlignment = Alignment.Center,
         ) {
-            // Fixation ticks above and below the centre column.
+            // Fixation ticks above and below the pivot column.
             Box(
-                Modifier.align(Alignment.TopCenter).padding(top = 8.dp)
+                Modifier.align(BiasAlignment(ORP_TICK_BIAS, -1f)).padding(top = 8.dp)
                     .size(width = 2.dp, height = 14.dp).background(Color.Black)
             )
             Box(
-                Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
+                Modifier.align(BiasAlignment(ORP_TICK_BIAS, 1f)).padding(bottom = 8.dp)
                     .size(width = 2.dp, height = 14.dp).background(Color.Black)
             )
 
@@ -82,7 +90,11 @@ fun ReaderScreen(vm: MainViewModel, state: UiState) {
                     color = Color.Black,
                 )
             } else {
-                OrpWord(word = state.words[state.index], fontSize = state.fontSize)
+                OrpWord(
+                    word = state.words[state.index],
+                    fontSize = state.fontSize,
+                    highlightFocus = state.highlightFocus,
+                )
             }
         }
 
@@ -155,7 +167,7 @@ fun ReaderScreen(vm: MainViewModel, state: UiState) {
  * fixed font size, with the focus letter pinned to the middle column.
  */
 @Composable
-private fun OrpWord(word: String, fontSize: Int) {
+private fun OrpWord(word: String, fontSize: Int, highlightFocus: Boolean) {
     val orp = when {
         word.length <= 1 -> 0
         word.length <= 5 -> 1
@@ -178,14 +190,14 @@ private fun OrpWord(word: String, fontSize: Int) {
             color = Color.Black,
             textAlign = TextAlign.End,
             maxLines = 1,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(ORP_BEFORE_WEIGHT),
         )
         Text(
             text = focus,
             fontSize = fontSize.sp,
             fontFamily = FontFamily.Monospace,
             fontWeight = FontWeight.Bold,
-            color = FocusGrey,
+            color = if (highlightFocus) FocusGrey else Color.Black,
             textAlign = TextAlign.Center,
             maxLines = 1,
         )
@@ -197,7 +209,7 @@ private fun OrpWord(word: String, fontSize: Int) {
             color = Color.Black,
             textAlign = TextAlign.Start,
             maxLines = 1,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.weight(ORP_AFTER_WEIGHT),
         )
     }
 }

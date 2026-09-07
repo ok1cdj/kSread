@@ -23,6 +23,10 @@ class ReaderPrefs(context: Context) {
         get() = prefs.getBoolean(KEY_HIDE_FINISHED, false)
         set(v) = prefs.edit().putBoolean(KEY_HIDE_FINISHED, v).apply()
 
+    var highlightFocus: Boolean
+        get() = prefs.getBoolean(KEY_HIGHLIGHT, true)
+        set(v) = prefs.edit().putBoolean(KEY_HIGHLIGHT, v).apply()
+
     var sortMode: SortMode
         get() = runCatching { SortMode.valueOf(prefs.getString(KEY_SORT, null) ?: "") }
             .getOrDefault(SortMode.PROGRESS)
@@ -43,6 +47,7 @@ class ReaderPrefs(context: Context) {
         private const val KEY_FONT = "font_size"
         private const val KEY_UPPER = "uppercase"
         private const val KEY_HIDE_FINISHED = "hide_finished"
+        private const val KEY_HIGHLIGHT = "highlight_focus"
         private const val KEY_SORT = "sort_mode"
     }
 }

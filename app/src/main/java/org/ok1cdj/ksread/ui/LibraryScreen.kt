@@ -183,6 +183,8 @@ fun LibraryScreen(vm: MainViewModel, state: UiState) {
             onToggleUppercase = { vm.toggleUppercase() },
             hideFinished = state.hideFinished,
             onToggleHideFinished = { vm.toggleHideFinished() },
+            highlightFocus = state.highlightFocus,
+            onToggleHighlightFocus = { vm.toggleHighlightFocus() },
             onClose = { showSettings = false },
         )
     }
@@ -225,6 +227,8 @@ private fun SettingsDialog(
     onToggleUppercase: () -> Unit,
     hideFinished: Boolean,
     onToggleHideFinished: () -> Unit,
+    highlightFocus: Boolean,
+    onToggleHighlightFocus: () -> Unit,
     onClose: () -> Unit,
 ) {
     Dialog(onDismissRequest = onClose) {
@@ -249,6 +253,14 @@ private fun SettingsDialog(
                 AppButton(
                     text = if (hideFinished) "ON" else "OFF",
                     onClick = onToggleHideFinished,
+                    fontSize = 14.sp,
+                )
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                TextMMD(text = stringResource(R.string.highlight_focus), fontSize = 15.sp, modifier = Modifier.weight(1f))
+                AppButton(
+                    text = if (highlightFocus) "ON" else "OFF",
+                    onClick = onToggleHighlightFocus,
                     fontSize = 14.sp,
                 )
             }

@@ -16,6 +16,7 @@
     <string name="info">O aplikaci</string>
     <string name="uppercase">Velká písmena</string>
     <string name="hide_finished">Skrýt přečtené knihy</string>
+    <string name="highlight_focus">Zvýraznit klíčové písmeno</string>
     <string name="close">Zavřít</string>
     <string name="pasted_title">Vložený text</string>
     <string name="clipboard_empty">Schránka je prázdná.</string>

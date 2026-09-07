@@ -39,6 +39,7 @@ data class UiState(
     val fontSize: Int = ReaderPrefs.DEFAULT_FONT,
     val uppercase: Boolean = false,
     val hideFinished: Boolean = false,
+    val highlightFocus: Boolean = true,
     val sortMode: SortMode = SortMode.PROGRESS,
     val docUri: String? = null,
 ) {
@@ -57,6 +58,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             fontSize = prefs.fontSize,
             uppercase = prefs.uppercase,
             hideFinished = prefs.hideFinished,
+            highlightFocus = prefs.highlightFocus,
             sortMode = prefs.sortMode,
         )
     )
@@ -233,6 +235,12 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         prefs.hideFinished = newVal
         _state.update { it.copy(hideFinished = newVal) }
         refreshLibrary()
+    }
+
+    fun toggleHighlightFocus() {
+        val newVal = !_state.value.highlightFocus
+        prefs.highlightFocus = newVal
+        _state.update { it.copy(highlightFocus = newVal) }
     }
 
     // ---- Internals --------------------------------------------------------
