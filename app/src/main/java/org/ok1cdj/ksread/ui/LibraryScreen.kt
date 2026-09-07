@@ -181,6 +181,8 @@ fun LibraryScreen(vm: MainViewModel, state: UiState) {
         SettingsDialog(
             uppercase = state.uppercase,
             onToggleUppercase = { vm.toggleUppercase() },
+            hideFinished = state.hideFinished,
+            onToggleHideFinished = { vm.toggleHideFinished() },
             onClose = { showSettings = false },
         )
     }
@@ -221,6 +223,8 @@ private fun BookRow(book: BookEntry, onClick: () -> Unit) {
 private fun SettingsDialog(
     uppercase: Boolean,
     onToggleUppercase: () -> Unit,
+    hideFinished: Boolean,
+    onToggleHideFinished: () -> Unit,
     onClose: () -> Unit,
 ) {
     Dialog(onDismissRequest = onClose) {
@@ -237,6 +241,14 @@ private fun SettingsDialog(
                 AppButton(
                     text = if (uppercase) "ON" else "OFF",
                     onClick = onToggleUppercase,
+                    fontSize = 14.sp,
+                )
+            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                TextMMD(text = stringResource(R.string.hide_finished), fontSize = 15.sp, modifier = Modifier.weight(1f))
+                AppButton(
+                    text = if (hideFinished) "ON" else "OFF",
+                    onClick = onToggleHideFinished,
                     fontSize = 14.sp,
                 )
             }

@@ -15,6 +15,7 @@
     <string name="settings">Settings</string>
     <string name="info">About</string>
     <string name="uppercase">Uppercase</string>
+    <string name="hide_finished">Hide finished books</string>
     <string name="close">Close</string>
     <string name="pasted_title">Pasted text</string>
     <string name="clipboard_empty">Clipboard is empty.</string>

@@ -38,6 +38,7 @@ data class UiState(
     val wpm: Int = ReaderPrefs.DEFAULT_WPM,
     val fontSize: Int = ReaderPrefs.DEFAULT_FONT,
     val uppercase: Boolean = false,
+    val hideFinished: Boolean = false,
     val sortMode: SortMode = SortMode.PROGRESS,
     val docUri: String? = null,
 ) {
@@ -55,6 +56,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             wpm = prefs.wpm,
             fontSize = prefs.fontSize,
             uppercase = prefs.uppercase,
+            hideFinished = prefs.hideFinished,
             sortMode = prefs.sortMode,
         )
     )
@@ -79,7 +81,9 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun refreshLibrary() {
         viewModelScope.launch(Dispatchers.IO) {
             val books = try {
-                library.listBooks().sortedBy(_state.value.sortMode)
+                val all = library.listBooks()
+                val visible = if (_state.value.hideFinished) all.filter { !it.isFinished } else all
+                visible.sortedBy(_state.value.sortMode)
             } catch (e: Exception) {
                 emptyList()
             }
@@ -222,6 +226,13 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         // Word boundaries don't change with case, so the current index stays valid.
         val words = if (rawText.isNotEmpty()) buildWords(rawText, newVal) else emptyList()
         _state.update { it.copy(uppercase = newVal, words = words) }
+    }
+
+    fun toggleHideFinished() {
+        val newVal = !_state.value.hideFinished
+        prefs.hideFinished = newVal
+        _state.update { it.copy(hideFinished = newVal) }
+        refreshLibrary()
     }
 
     // ---- Internals --------------------------------------------------------

@@ -29,7 +29,8 @@ fun List<BookEntry>.sortedBy(mode: SortMode): List<BookEntry> = when (mode) {
                 it.isUnread -> 1
                 else -> 2 // finished
             }
-        }.thenBy { it.name.lowercase() }
+        }.thenByDescending { it.percent }
+         .thenBy { it.name.lowercase() }
     )
 }
 
