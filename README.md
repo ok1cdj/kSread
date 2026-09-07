@@ -96,6 +96,12 @@ export JAVA_HOME=/opt/android-studio/jbr
 adb shell am start -n org.ok1cdj.ksread/.MainActivity
 ```
 
+## Support
+
+If kSread is useful to you, you can support development:
+
+<a href="https://www.buymeacoffee.com/ok1cdj"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="48"></a>
+
 ## Architecture
 
 ```
